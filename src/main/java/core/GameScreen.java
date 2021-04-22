@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -18,6 +19,7 @@ public class GameScreen extends ScreenAdapter {
     private SpriteBatch spriteBatch;
     private World world;
     private Box2DDebugRenderer box2DDebugRenderer;
+    private Texture asteroidTexture = new Texture(Gdx.files.internal("smallAsteroid.png"));;
 
     public GameScreen(OrthographicCamera camera){
         this.camera = camera;
@@ -37,6 +39,7 @@ public class GameScreen extends ScreenAdapter {
         camera.position.set(new Vector3(0,0,0));
         camera.update();
     }
+
     @Override
     public void render(float delta){
         this.Update();
@@ -45,7 +48,8 @@ public class GameScreen extends ScreenAdapter {
 
         spriteBatch.begin();
         // render objects
-
+        spriteBatch.draw(asteroidTexture,100,100);
+        spriteBatch.draw(asteroidTexture,0,100);
         spriteBatch.end();
         box2DDebugRenderer.render(world, camera.combined.scl(PPM));
     }
