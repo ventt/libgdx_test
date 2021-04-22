@@ -19,15 +19,28 @@ public class GameScreen extends ScreenAdapter {
     private SpriteBatch spriteBatch;
     private World world;
     private Box2DDebugRenderer box2DDebugRenderer;
-    private Texture asteroidTexture = new Texture(Gdx.files.internal("smallAsteroid.png"));;
+    private Asteroid asteroid;
+    private Floor floor;
+    private Texture texture = new Texture(Gdx.files.internal("smallAsteroid.png"));
+    private MyInputProcessor mip;
+
 
     public GameScreen(OrthographicCamera camera){
         this.camera = camera;
         this.spriteBatch = new SpriteBatch();
         this.world = new World(new Vector2(0,0),false);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
+        floor = new Floor(world,camera);
+        this.asteroid = new Asteroid(world);
+        asteroid.setPosition(new Vector2(0,0));
+        asteroid.setAsteroidTexture(texture);
+        mip = new MyInputProcessor(asteroid);
+        world.createBody(asteroid.getBodyDef());
+        Gdx.input.setInputProcessor(mip);
     }
     public void Update(){
+        mip.asteroid.updateMotion();
+        System.out.println("X: "+asteroid.getPosition().x+" Y: "+asteroid.getPosition().y);
         world.step(1/60f,6,2);
         cameraUpdate();
         spriteBatch.setProjectionMatrix(camera.combined);
@@ -48,8 +61,8 @@ public class GameScreen extends ScreenAdapter {
 
         spriteBatch.begin();
         // render objects
-        spriteBatch.draw(asteroidTexture,100,100);
-        spriteBatch.draw(asteroidTexture,0,100);
+        spriteBatch.draw(asteroid.getAsteroidTexture(), asteroid.getPosition().x,asteroid.getPosition().y);
+        //spriteBatch.draw(asteroidTexture,0,0);
         spriteBatch.end();
         box2DDebugRenderer.render(world, camera.combined.scl(PPM));
     }

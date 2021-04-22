@@ -14,9 +14,10 @@ public class DesktopLauncher {
         //Graphics.Monitor primary = Gdx.graphics.getPrimaryMonitor();
 
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        //config.width = 800;
-        //config.height = 640;
-        config.setFromDisplayMode(LwjglApplicationConfiguration.getDesktopDisplayMode());
+        config.width = 800;
+        config.height = 640;
+        config.resizable = true;
+        //config.setFromDisplayMode(LwjglApplicationConfiguration.getDesktopDisplayMode());
 
 
         config.vSyncEnabled = true;

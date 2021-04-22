@@ -3,6 +3,7 @@ package core;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 
 public class Boot extends Game {
     public static Boot INSTANCE;
@@ -11,6 +12,7 @@ public class Boot extends Game {
     public Boot(){
         INSTANCE = this;
     }
+
     @Override
     public void create() {
         this.widthScreen = Gdx.graphics.getWidth();
@@ -18,5 +20,6 @@ public class Boot extends Game {
         this.orthographicCamera = new OrthographicCamera();
         this.orthographicCamera.setToOrtho(false,widthScreen,heightSreen);
         setScreen(new GameScreen(orthographicCamera));
+
     }
 }
